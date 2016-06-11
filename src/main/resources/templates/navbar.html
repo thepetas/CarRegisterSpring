@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Car register app</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active' : ''}">
+                    <a th:href="@{/}">Home</a>
+                </li>
+                <li th:classappend="${#httpServletRequest.getRequestURI() == '/cars' ? 'active' : ''}">
+                    <a th:href="@{/cars}">Cars</a></li>
+                <li th:classappend="${#httpServletRequest.getRequestURI() == '/persons' ? 'active' : ''}">
+                    <a th:href="@{/persons}">Persons</a></li>
+                <li th:classappend="${#httpServletRequest.getRequestURI() == '/address' ? 'active' : ''}">
+                    <a th:href="@{/addresses}">Addresses</a></li>
+                <li th:classappend="${#httpServletRequest.getRequestURI() == '/about' ? 'active' : ''}">
+                    <a th:href="@{/about}">About</a></li>
+
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

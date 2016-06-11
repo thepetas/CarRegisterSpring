@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th=" http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Addresses</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:include="navbar::navbar">Navbar</div>
+<div class="container-fluid">
+    <div th:if="${message != null}" th:text="${message}">Message</div>
+    <h1>Addresses</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Street</th>
+            <th>Number of house</th>
+            <th>City</th>
+            <th>ZIP Code</th>
+        </tr>
+        <tr th:each="address : ${addresses}">
+            <td th:text="${address.id}"></td>
+            <td th:text="${address.houseNumber}"></td>
+            <td th:text="${address.city}"></td>
+            <td th:text="${address.zipCode}"></td>
+            <td><a th:href="@{/addresses/delete/} + ${address.id} + ''">Delete</a></td>
+        </tr>
+    </table>
+
+
+    <a href="/addresses/new" class="btn btn-link">New address</a>
+</div>
+</body>
+</html>

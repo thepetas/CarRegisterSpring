@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>New address</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:include="navbar::navbar">Navbar</div>
+<div class="container-fluid">
+    <h1>New address</h1>
+
+    <form action="#" th:action="@{/addresses/new}" th:object="${address}" method="post">
+        <table>
+            <tbody>
+            <tr>
+                <td>Street:</td>
+                <td>
+                    <input type="text" th:field="*{street}" placeholder="Name of street"/>
+                </td>
+                <td th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Number of house:</td>
+                <td>
+                    <input type="text" th:field="*{houseNumber}" placeholder="Number of house"/>
+                </td>
+                <td th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Zip code:</td>
+                <td>
+                    <input type="text" th:field="*{zipCode}" placeholder="ZIP code"/>
+                </td>
+                <td th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}">Name Error</td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>
+                    <input type="text" th:field="*{city}" placeholder="Name of city"/>
+                </td>
+                <td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Name Error</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <input type="submit" value="Save"/>
+    </form>
+
+
+</div>
+</body>
+</html>

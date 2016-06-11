@@ -1,10 +1,10 @@
-package cz.thepetas.musicregister.service.impl;
+package cz.thepetas.carregister.service.impl;
 
-import cz.thepetas.musicregister.Repository.PersonRepository;
-import cz.thepetas.musicregister.exception.PersonNotFound;
-import cz.thepetas.musicregister.exception.PersonWithBirthNumberExists;
-import cz.thepetas.musicregister.model.Person;
-import cz.thepetas.musicregister.service.PersonService;
+import cz.thepetas.carregister.Repository.PersonRepository;
+import cz.thepetas.carregister.exception.PersonNotFound;
+import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
+import cz.thepetas.carregister.model.Person;
+import cz.thepetas.carregister.service.PersonService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

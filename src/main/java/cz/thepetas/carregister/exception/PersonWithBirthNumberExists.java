@@ -1,4 +1,4 @@
-package cz.thepetas.musicregister.exception;
+package cz.thepetas.carregister.exception;
 
 /**
  * Created by petr on 6/11/16.

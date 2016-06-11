@@ -1,7 +1,7 @@
-package cz.thepetas.musicregister.service;
+package cz.thepetas.carregister.service;
 
-import cz.thepetas.musicregister.exception.AddressNotFound;
-import cz.thepetas.musicregister.model.Address;
+import cz.thepetas.carregister.exception.AddressNotFound;
+import cz.thepetas.carregister.model.Address;
 
 import java.util.List;
 

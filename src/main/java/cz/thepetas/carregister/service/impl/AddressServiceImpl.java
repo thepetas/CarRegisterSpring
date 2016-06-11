@@ -1,10 +1,10 @@
-package cz.thepetas.musicregister.service.impl;
+package cz.thepetas.carregister.service.impl;
 
 
-import cz.thepetas.musicregister.Repository.AddressRepository;
-import cz.thepetas.musicregister.exception.AddressNotFound;
-import cz.thepetas.musicregister.model.Address;
-import cz.thepetas.musicregister.service.AddressService;
+import cz.thepetas.carregister.Repository.AddressRepository;
+import cz.thepetas.carregister.exception.AddressNotFound;
+import cz.thepetas.carregister.model.Address;
+import cz.thepetas.carregister.service.AddressService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

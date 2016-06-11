@@ -1,8 +1,8 @@
-package cz.thepetas.musicregister.service;
+package cz.thepetas.carregister.service;
 
-import cz.thepetas.musicregister.exception.PersonNotFound;
-import cz.thepetas.musicregister.exception.PersonWithBirthNumberExists;
-import cz.thepetas.musicregister.model.Person;
+import cz.thepetas.carregister.exception.PersonNotFound;
+import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
+import cz.thepetas.carregister.model.Person;
 
 import java.util.List;
 

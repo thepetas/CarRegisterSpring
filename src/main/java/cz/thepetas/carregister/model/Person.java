@@ -1,4 +1,4 @@
-package cz.thepetas.musicregister.model;
+package cz.thepetas.carregister.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

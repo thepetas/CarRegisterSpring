@@ -1,6 +1,6 @@
-package cz.thepetas.musicregister.Repository;
+package cz.thepetas.carregister.Repository;
 
-import cz.thepetas.musicregister.model.Address;
+import cz.thepetas.carregister.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

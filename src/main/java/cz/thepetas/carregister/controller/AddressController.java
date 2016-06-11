@@ -1,8 +1,8 @@
-package cz.thepetas.musicregister.controller;
+package cz.thepetas.carregister.controller;
 
-import cz.thepetas.musicregister.exception.AddressNotFound;
-import cz.thepetas.musicregister.model.Address;
-import cz.thepetas.musicregister.service.AddressService;
+import cz.thepetas.carregister.exception.AddressNotFound;
+import cz.thepetas.carregister.model.Address;
+import cz.thepetas.carregister.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

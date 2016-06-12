@@ -53,8 +53,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address findByDetails(Address address) {
-        Address finded = addressRepositoty.findByDetails(address.getStreet(), address.getHouseNumber(),
+        return addressRepositoty.findByDetails(address.getStreet(), address.getHouseNumber(),
                 address.getZipCode(), address.getCity());
-        return finded;
     }
 }

@@ -30,7 +30,7 @@
             <td th:text="${person.surname}"></td>
             <td th:text="${person.address.id}"></td>
             <td><a th:href="@{/persons/} + ${person.id} + ''">Show</a></td>
-            <td><a th:href="@{#}">Edit</a></td>
+            <td><a th:href="@{/persons/edit/} + ${person.id} + ''">Edit</a></td>
             <td><a th:href="@{/persons/delete/} + ${person.id} + ''"
                    onclick="return confirm('Are you sure to delete this item?')">Delete</a></td>
         </tr>

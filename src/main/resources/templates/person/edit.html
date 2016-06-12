@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit person</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:include="navbar::navbar">Navbar</div>
+<div class="container-fluid">
+    <h1>Edit Person</h1>
+
+    <form action="#" th:action="@{/persons/edit/} + ${person.id}" method="post">
+        <h3>Personal information:</h3>
+        <table th:object="${person}">
+            <tbody>
+            <tr>
+                <td>Name:</td>
+                <td>
+                    <input type="text" th:field="*{name}" placeholder="Name"/>
+                </td>
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Surname:</td>
+                <td>
+                    <input type="text" th:field="*{surname}" placeholder="Surname"/>
+                </td>
+                <td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Birth number:</td>
+                <td>
+                    <input type="text" min="9" max="10" th:field="*{birthNumber}" placeholder="Birth number"/>
+                </td>
+                <td th:if="${#fields.hasErrors('birthNumber')}" th:errors="*{birthNumber}">Name Error</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Address:</h3>
+        <table th:object="${address}">
+            <tbody>
+            <tr>
+                <td>Street:</td>
+                <td>
+                    <input type="text" th:field="*{street}" placeholder="Name of street"/>
+                </td>
+                <td th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Number of house:</td>
+                <td>
+                    <input type="text" th:field="*{houseNumber}" placeholder="Number of house"/>
+                </td>
+                <td th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Zip code:</td>
+                <td>
+                    <input type="text" th:field="*{zipCode}" placeholder="ZIP code"/>
+                </td>
+                <td th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}">Name Error</td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>
+                    <input type="text" th:field="*{city}" placeholder="Name of city"/>
+                </td>
+                <td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Name Error</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/persons}" class="btn btn-default">Back</a><input class="btn btn-success" type="submit" value="Update"/>
+    </form>
+
+
+</div>
+</body>
+</html>

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,9 +27,6 @@ public class PersonController extends WebMvcConfigurerAdapter {
 
     @Autowired
     private PersonService personService;
-
-    @Autowired
-    AddressService addressService;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -53,7 +51,6 @@ public class PersonController extends WebMvcConfigurerAdapter {
             return "person/new";
         }
         try {
-            address = addressService.create(address);
             person.setAddress(address);
             long id = personService.create(person).getId();
             redirectAttributes.addFlashAttribute("message", "Person '" + id + "' was succesfully added");
@@ -92,12 +89,50 @@ public class PersonController extends WebMvcConfigurerAdapter {
         }
 
         model.addAttribute("person", person);
-
-
-        for(Vehicle v : person.getVehicles()){
-            System.out.println(v.getId());
-        }
         return "person/show";
+    }
+
+
+    @RequestMapping(value = "/persons/edit/{id}", method = RequestMethod.GET)
+    public String editPerson(@PathVariable("id") Long personId, Model model,
+                             final RedirectAttributes redirectAttributes) {
+        Person person = personService.findById(personId);
+        if (person == null) {
+            redirectAttributes.addFlashAttribute("message", "Person '" + personId + "' doesn't exist.");
+            return "redirect:/persons";
+        }
+
+        Address address = person.getAddress();
+        model.addAttribute("person", person);
+        model.addAttribute("address", address);
+        return "person/edit";
+    }
+
+    @RequestMapping(value = {"/persons/edit/{id}"}, method = RequestMethod.POST)
+    public String editPerson(@PathVariable("id") Long personId,
+                             @Valid Person person,
+                             BindingResult personBindingResult,
+                             @Valid Address address,
+                             BindingResult addressBindingResult,
+                             final RedirectAttributes redirectAttributes) {
+
+
+        if (personBindingResult.getErrorCount() != 1 || addressBindingResult.hasErrors()) {
+            return "person/edit";
+        }
+        try {
+            person.setId(personId);
+            person.setAddress(address);
+            long id = personService.update(person).getId();
+            redirectAttributes.addFlashAttribute("message", "Person '" + id + "' was succesfully added");
+            return "redirect:/persons";
+        } catch (PersonWithBirthNumberExists personWithBirthNumberExists) {
+            personBindingResult.rejectValue("birthNumber", "error.person", "Person with this birth number already exists!");
+            return "person/edit";
+        } catch (PersonNotFound personNotFound) {
+            redirectAttributes.addFlashAttribute("message", "Person '" + personId + "' doesn't exist");
+            return "redirect:/persons";
+        }
     }
 
 }

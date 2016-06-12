@@ -1,11 +1,15 @@
 package cz.thepetas.carregister.service.impl;
 
+import cz.thepetas.carregister.model.Address;
 import cz.thepetas.carregister.model.Vehicle;
+import cz.thepetas.carregister.repository.AddressRepository;
 import cz.thepetas.carregister.repository.PersonRepository;
 import cz.thepetas.carregister.exception.PersonNotFound;
 import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
 import cz.thepetas.carregister.model.Person;
+import cz.thepetas.carregister.service.AddressService;
 import cz.thepetas.carregister.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +22,9 @@ public class PersonServiceImpl implements PersonService {
     @Resource
     private PersonRepository personRepositoty;
 
+    @Autowired
+    private AddressService addressService;
+
     @Override
     @Transactional
     public Person create(Person person) throws PersonWithBirthNumberExists {
@@ -25,6 +32,9 @@ public class PersonServiceImpl implements PersonService {
         if (finded != null) {
             throw new PersonWithBirthNumberExists();
         }
+
+        Address address = addressService.create(person.getAddress());
+        person.setAddress(address);
         return personRepositoty.save(person);
     }
 
@@ -51,8 +61,23 @@ public class PersonServiceImpl implements PersonService {
     @Override
     @Transactional
     public Person update(Person person) throws PersonWithBirthNumberExists, PersonNotFound {
-        //        TODO update person entity
-        return null;
+
+        Person finded = personRepositoty.findByBirthNumber(person.getBirthNumber());
+        if (finded != null && person.getId() != finded.getId()) {
+            throw new PersonWithBirthNumberExists();
+        }
+
+        finded = personRepositoty.findOne(person.getId());
+        if (finded == null)
+            throw new PersonNotFound();
+
+        finded.setName(person.getName());
+        finded.setSurname(person.getSurname());
+        finded.setBirthNumber(person.getBirthNumber());
+        Address address = addressService.create(person.getAddress());
+        finded.setAddress(address);
+        personRepositoty.flush();
+        return finded;
     }
 
     @Override

@@ -3,6 +3,7 @@ package cz.thepetas.carregister.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "persons")
@@ -31,13 +32,11 @@ public class Person {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Vehicle> vehicles;
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -70,5 +69,13 @@ public class Person {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 }

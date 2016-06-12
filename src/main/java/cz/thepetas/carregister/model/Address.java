@@ -33,17 +33,12 @@ public class Address {
     @Size(min = 1, max = 30)
     private String city;
 
-    @OneToMany(targetEntity = Address.class, cascade = CascadeType.ALL,
-            mappedBy = "persons")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
     private List<Person> persons;
 
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getStreet() {

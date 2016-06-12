@@ -1,14 +1,19 @@
 package cz.thepetas.carregister.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import cz.thepetas.carregister.enums.VehicleType;
 
-@Entity(name = "cars")
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "vehicles")
+@DiscriminatorValue(value = VehicleType.CAR)
 public class Car extends Vehicle {
 
     @Column
     @NotNull
+    @Size(min = 1, max = 30)
     private String idMark;
 
 

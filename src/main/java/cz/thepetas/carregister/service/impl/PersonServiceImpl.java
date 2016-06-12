@@ -1,5 +1,6 @@
 package cz.thepetas.carregister.service.impl;
 
+import cz.thepetas.carregister.model.Vehicle;
 import cz.thepetas.carregister.repository.PersonRepository;
 import cz.thepetas.carregister.exception.PersonNotFound;
 import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
@@ -12,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class PersonServiceImp implements PersonService {
+public class PersonServiceImpl implements PersonService {
 
     @Resource
     private PersonRepository personRepositoty;
@@ -34,6 +35,9 @@ public class PersonServiceImp implements PersonService {
         if (finded == null) {
             throw new PersonNotFound();
         }
+        for (Vehicle v : finded.getVehicles()) {
+            v.setOwner(null);
+        }
         personRepositoty.delete(finded);
 
         return finded;
@@ -47,6 +51,7 @@ public class PersonServiceImp implements PersonService {
     @Override
     @Transactional
     public Person update(Person person) throws PersonWithBirthNumberExists, PersonNotFound {
+        //        TODO update person entity
         return null;
     }
 

@@ -1,10 +1,14 @@
 package cz.thepetas.carregister.controller;
 
+import cz.thepetas.carregister.exception.CarWithIdMarkExists;
 import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
 import cz.thepetas.carregister.model.Address;
+import cz.thepetas.carregister.model.Car;
 import cz.thepetas.carregister.model.Person;
+import cz.thepetas.carregister.model.Vehicle;
 import cz.thepetas.carregister.service.AddressService;
 import cz.thepetas.carregister.service.PersonService;
+import cz.thepetas.carregister.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,9 @@ public class HomeController {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private VehicleService vehicleService;
 
     @Autowired
     AddressService addressService;
@@ -32,7 +39,7 @@ public class HomeController {
 
 
     @RequestMapping("/gen")
-    public String generateData() {
+    public String generateData() throws CarWithIdMarkExists {
 
         Address address = new Address();
         address.setStreet("Jana s ");
@@ -57,7 +64,7 @@ public class HomeController {
         address2.setZipCode("165561adfaf223967");
         address2.setCity("Tabor");
 
-        address = addressService.create(address2);
+        address2 = addressService.create(address2);
 
         Person person = new Person();
         person.setName("Petr");
@@ -93,6 +100,37 @@ public class HomeController {
             personService.create(person2);
         } catch (PersonWithBirthNumberExists personWithBirthNumberExists) {
             personWithBirthNumberExists.printStackTrace();
+        }
+
+        Car car1 = new Car();
+        car1.setModel("MODEL1");
+        car1.setBrand("BRAND1");
+        car1.setIdMark("SPZ1");
+
+        Car car2 = new Car();
+        car2.setModel("MODEL1");
+        car2.setBrand("BRAND1");
+        car2.setIdMark("SPZ1");
+
+        Car car3 = new Car();
+        car3.setModel("MODEL1");
+        car3.setBrand("BRAND1");
+        car3.setIdMark("SPZ1");
+
+        try {
+            vehicleService.create(car1);
+        } catch (CarWithIdMarkExists carWithIdMarkExists) {
+            carWithIdMarkExists.printStackTrace();
+        }
+        try {
+            vehicleService.create(car2);
+        } catch (CarWithIdMarkExists carWithIdMarkExists) {
+            carWithIdMarkExists.printStackTrace();
+        }
+        try {
+            vehicleService.create(car3);
+        } catch (CarWithIdMarkExists carWithIdMarkExists) {
+            carWithIdMarkExists.printStackTrace();
         }
 
 

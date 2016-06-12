@@ -5,6 +5,7 @@ import cz.thepetas.carregister.exception.PersonNotFound;
 import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
 import cz.thepetas.carregister.model.Address;
 import cz.thepetas.carregister.model.Person;
+import cz.thepetas.carregister.model.Vehicle;
 import cz.thepetas.carregister.service.AddressService;
 import cz.thepetas.carregister.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,16 @@ public class PersonController extends WebMvcConfigurerAdapter {
 
 
     @RequestMapping(value = "/persons/new", method = RequestMethod.GET)
-    public String savePage(Person person, Address address) {
+    public String newPerson(Person person, Address address) {
         return "person/new";
     }
 
     @RequestMapping(value = {"/persons/new"}, method = RequestMethod.POST)
-    public String savePage(@Valid Person person,
-                           BindingResult personBindingResult,
-                           @Valid Address address,
-                           BindingResult addressBindingResult,
-                           final RedirectAttributes redirectAttributes) {
+    public String newPerson(@Valid Person person,
+                            BindingResult personBindingResult,
+                            @Valid Address address,
+                            BindingResult addressBindingResult,
+                            final RedirectAttributes redirectAttributes) {
 
 
         if (personBindingResult.getErrorCount() != 1 || addressBindingResult.hasErrors()) {
@@ -91,6 +92,11 @@ public class PersonController extends WebMvcConfigurerAdapter {
         }
 
         model.addAttribute("person", person);
+
+
+        for(Vehicle v : person.getVehicles()){
+            System.out.println(v.getId());
+        }
         return "person/show";
     }
 

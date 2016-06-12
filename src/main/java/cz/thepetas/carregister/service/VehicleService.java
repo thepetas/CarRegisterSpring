@@ -1,14 +1,15 @@
 package cz.thepetas.carregister.service;
 
-import cz.thepetas.carregister.exception.AddressNotFound;
+import cz.thepetas.carregister.exception.CarWithIdMarkExists;
 import cz.thepetas.carregister.exception.VehicleNotFound;
-import cz.thepetas.carregister.model.Address;
+import cz.thepetas.carregister.model.Car;
 import cz.thepetas.carregister.model.Vehicle;
 
 import java.util.List;
 
+
 public interface VehicleService {
-    public Vehicle create(Vehicle vehicle);
+    public Vehicle create(Vehicle vehicle) throws CarWithIdMarkExists;
 
     public Vehicle delete(long id) throws VehicleNotFound;
 
@@ -16,5 +17,5 @@ public interface VehicleService {
 
     public Vehicle findById(long id);
 
-    public Address findByType(Vehicle vehicle);
+    public List<Vehicle> findAllByType(String type);
 }

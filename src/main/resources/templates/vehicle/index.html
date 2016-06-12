@@ -3,7 +3,7 @@
       xmlns:th=" http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Cars</title>
+    <title>Vehicles</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -12,7 +12,31 @@
 <body>
 <div th:include="navbar::navbar">Navbar</div>
 <div class="container-fluid">
-    <h1>Cars</h1>
+    <div th:if="${message != null}" th:text="${message}">Message</div>
+    <h1>Vehicles</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>ID mark</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.id}"></td>
+            <td th:text="${car.idMark}"></td>
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.model}"></td>
+            <td><a th:href="@{/vehicles/} + ${car.id} + ''">Show</a></td>
+            <td><a th:href="@{/vehicles/delete/} + ${car.id} + ''"
+                   onclick="return confirm('Are you sure to delete this item?')">Delete</a></td>
+        </tr>
+    </table>
+
+
+    <a href="/vehicles/new" class="btn btn-success">New vehicle</a>
+
 </div>
 </body>
 </html>

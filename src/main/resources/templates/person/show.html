@@ -46,6 +46,28 @@
         <strong>ZIP code:</strong>
         <span th:text="*{address.zipCode}"></span>
     </div>
+
+    <h2>Cars:</h2>
+    <div th:each="car : *{vehicles}">
+        <div class="form-group">
+            <div>
+                <strong>ID:</strong>
+                <span th:text="${car.id}"></span>
+            </div>
+            <div>
+                <strong>Brand:</strong>
+                <span th:text="${car.brand}"></span>
+            </div>
+            <div>
+                <strong>Model:</strong>
+                <span th:text="${car.getModel()}"></span>
+            </div>
+            <div>
+                <strong>ID mark:</strong>
+                <span th:text="${car.idMark}"></span>
+            </div>
+        </div>
+    </div>
     <a th:href="@{/persons}" class="btn btn-default">Back</a>
 </div>
 </body>

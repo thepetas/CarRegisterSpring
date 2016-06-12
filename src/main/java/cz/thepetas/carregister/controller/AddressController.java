@@ -29,14 +29,14 @@ public class AddressController extends WebMvcConfigurerAdapter {
 
 
     @RequestMapping(value = "/addresses/new", method = RequestMethod.GET)
-    public String savePage(Address address) {
+    public String newAddress(Address address) {
         return "address/new";
     }
 
     @RequestMapping(value = {"/addresses/new"}, method = RequestMethod.POST)
-    public String savePage(@Valid Address address,
-                           BindingResult bindingResult,
-                           final RedirectAttributes redirectAttributes) {
+    public String newAddress(@Valid Address address,
+                             BindingResult bindingResult,
+                             final RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return "address/new";

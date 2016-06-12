@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th=" http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Person details</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:include="navbar::navbar">Navbar</div>
+<div class="container-fluid">
+    <div th:object="${car}">
+        <h1>Vehicle details</h1>
+        <div>
+            <strong>ID:</strong>
+            <span th:text="*{id}"></span>
+        </div>
+        <div>
+            <strong>ID mark:</strong>
+            <span th:text="*{idMark}"></span>
+        </div>
+        <div>
+            <strong>Brand:</strong>
+            <span th:text="*{brand}"></span>
+        </div>
+        <div>
+            <strong>Model:</strong>
+            <span th:text="*{model}"></span>
+
+        </div>
+    </div>
+
+
+    <div th:if="${owner != null}" th:object="${owner}">
+        <h3>Owner:</h3>
+        <div>
+            <strong>ID:</strong>
+            <span th:text="*{id}"></span>
+        </div>
+        <div>
+            <strong>Name:</strong>
+            <span th:text="*{name}"></span>
+        </div>
+        <div>
+            <strong>Surname:</strong>
+            <span th:text="*{surname}"></span>
+        </div>
+    </div>
+
+
+    <a th:href="@{/vehicles}" class="btn btn-default">Back</a>
+</div>
+</body>
+</html>

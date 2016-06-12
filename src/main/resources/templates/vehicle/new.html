@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>New address</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:include="navbar::navbar">Navbar</div>
+<div class="container-fluid">
+    <h1>New vehicle</h1>
+
+    <form action="#" th:action="@{/vehicles/new}" th:object="${car}" method="post">
+        <table>
+            <tbody>
+            <tr>
+                <td>ID mark:</td>
+                <td>
+                    <input type="text" th:field="*{idMark}" placeholder="ID mark"/>
+                </td>
+                <td th:if="${#fields.hasErrors('idMark')}" th:errors="*{idMark}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Brand:</td>
+                <td>
+                    <input type="text" th:field="*{brand}" placeholder="Brand of car"/>
+                </td>
+                <td th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Model:</td>
+                <td>
+                    <input type="text" th:field="*{model}" placeholder="Model of car"/>
+                </td>
+                <td th:if="${#fields.hasErrors('model')}" th:errors="*{model}">Name Error</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/vehicles}" class="btn btn-default">Back</a><input class="btn btn-success" type="submit"
+                                                                         value="Save"/>
+    </form>
+
+
+</div>
+</body>
+</html>

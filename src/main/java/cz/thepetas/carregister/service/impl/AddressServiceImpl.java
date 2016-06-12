@@ -1,7 +1,7 @@
 package cz.thepetas.carregister.service.impl;
 
 
-import cz.thepetas.carregister.Repository.AddressRepository;
+import cz.thepetas.carregister.repository.AddressRepository;
 import cz.thepetas.carregister.exception.AddressNotFound;
 import cz.thepetas.carregister.model.Address;
 import cz.thepetas.carregister.service.AddressService;

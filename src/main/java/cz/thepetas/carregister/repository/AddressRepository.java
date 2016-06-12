@@ -1,4 +1,4 @@
-package cz.thepetas.carregister.Repository;
+package cz.thepetas.carregister.repository;
 
 import cz.thepetas.carregister.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -36,39 +36,31 @@ public class PersonController extends WebMvcConfigurerAdapter {
 
 
     @RequestMapping(value = "/persons/new", method = RequestMethod.GET)
-    public String savePage(Person person) {
+    public String savePage(Person person, Address address) {
         return "person/new";
     }
 
     @RequestMapping(value = {"/persons/new"}, method = RequestMethod.POST)
     public String savePage(@Valid Person person,
-                           BindingResult bindingResult,
+                           BindingResult personBindingResult,
+                           @Valid Address address,
+                           BindingResult addressBindingResult,
                            final RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.getErrorCount() == 1) {
-            Address address = new Address();
-            address.setStreet("a");
-            address.setHouseNumber("a");
-            address.setZipCode("a");
-            address.setCity("a");
-            address = addressService.create(address);
-            person.setAddress(address);
 
-        }
-
-        if (bindingResult.hasErrors() && bindingResult.getErrorCount() != 1) {
+        if (personBindingResult.getErrorCount() != 1 || addressBindingResult.hasErrors()) {
             return "person/new";
         }
-
         try {
+            address = addressService.create(address);
+            person.setAddress(address);
             long id = personService.create(person).getId();
             redirectAttributes.addFlashAttribute("message", "Person '" + id + "' was succesfully added");
             return "redirect:/persons";
         } catch (PersonWithBirthNumberExists personWithBirthNumberExists) {
-            redirectAttributes.addFlashAttribute("message", "Person with birthNumber '" + person.getBirthNumber() + "' already exists");
-            return "redirect:/persons/new";
+            personBindingResult.rejectValue("birthNumber", "error.person", "Person with this birth number already exists!");
+            return "person/new";
         }
-
     }
 
     @RequestMapping("/persons")
@@ -88,6 +80,18 @@ public class PersonController extends WebMvcConfigurerAdapter {
         }
 
         return "redirect:/persons";
+    }
+
+    @RequestMapping(value = "/persons/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable("id") Long personId, Model model, final RedirectAttributes redirectAttributes) {
+        Person person = personService.findById(personId);
+        if (person == null) {
+            redirectAttributes.addFlashAttribute("message", "Person '" + personId + "' doesn't exist.");
+            return "redirect:/persons";
+        }
+
+        model.addAttribute("person", person);
+        return "person/show";
     }
 
 }

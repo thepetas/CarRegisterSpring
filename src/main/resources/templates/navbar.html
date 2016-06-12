@@ -13,8 +13,8 @@
                 <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active' : ''}">
                     <a th:href="@{/}">Home</a>
                 </li>
-                <li th:classappend="${#httpServletRequest.getRequestURI() == '/cars' ? 'active' : ''}">
-                    <a th:href="@{/cars}">Cars</a></li>
+                <li th:classappend="${#httpServletRequest.getRequestURI() == '/vehicles' ? 'active' : ''}">
+                    <a th:href="@{/vehicles}">Vehicles</a></li>
                 <li th:classappend="${#httpServletRequest.getRequestURI() == '/persons' ? 'active' : ''}">
                     <a th:href="@{/persons}">Persons</a></li>
                 <li th:classappend="${#httpServletRequest.getRequestURI() == '/address' ? 'active' : ''}">

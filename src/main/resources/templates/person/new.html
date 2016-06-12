@@ -12,8 +12,9 @@
 <div class="container-fluid">
     <h1>New Person</h1>
 
-    <form action="#" th:action="@{/persons/new}" th:object="${person}" method="post">
-        <table>
+    <form action="#" th:action="@{/persons/new}" method="post">
+        <h3>Personal information:</h3>
+        <table th:object="${person}">
             <tbody>
             <tr>
                 <td>Name:</td>
@@ -39,7 +40,41 @@
             </tbody>
         </table>
 
-        <input type="submit" value="Save"/>
+        <h3>Address:</h3>
+        <table th:object="${address}">
+            <tbody>
+            <tr>
+                <td>Street:</td>
+                <td>
+                    <input type="text" th:field="*{street}" placeholder="Name of street"/>
+                </td>
+                <td th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Number of house:</td>
+                <td>
+                    <input type="text" th:field="*{houseNumber}" placeholder="Number of house"/>
+                </td>
+                <td th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Zip code:</td>
+                <td>
+                    <input type="text" th:field="*{zipCode}" placeholder="ZIP code"/>
+                </td>
+                <td th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}">Name Error</td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>
+                    <input type="text" th:field="*{city}" placeholder="Name of city"/>
+                </td>
+                <td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Name Error</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/persons}" class="btn btn-default">Back</a><input class="btn btn-success" type="submit" value="Save"/>
     </form>
 
 

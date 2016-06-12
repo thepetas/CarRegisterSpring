@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th=" http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Person details</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:include="navbar::navbar">Navbar</div>
+<div class="container-fluid" th:object="${person}">
+    <h1>Person details</h1>
+    <div>
+        <strong>ID:</strong>
+        <span th:text="*{id}"></span>
+    </div>
+    <div>
+        <strong>Name:</strong>
+        <span th:text="*{name}"></span>
+    </div>
+    <div>
+        <strong>Surname:</strong>
+        <span th:text="*{surname}"></span>
+    </div>
+    <div>
+        <strong>Birth number:</strong>
+        <span th:text="*{birthNumber}"></span>
+    </div>
+    <h3>Address:</h3>
+    <div>
+        <strong>Street:</strong>
+        <span th:text="*{address.id}"></span>
+    </div>
+    <div>
+        <strong>Number of house:</strong>
+        <span th:text="*{address.houseNumber}"></span>
+    </div>
+    <div>
+        <strong>City:</strong>
+        <span th:text="*{address.city}"></span>
+    </div>
+    <div>
+        <strong>ZIP code:</strong>
+        <span th:text="*{address.zipCode}"></span>
+    </div>
+    <a th:href="@{/persons}" class="btn btn-default">Back</a>
+</div>
+</body>
+</html>

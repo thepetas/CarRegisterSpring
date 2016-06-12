@@ -1,6 +1,6 @@
 package cz.thepetas.carregister.service.impl;
 
-import cz.thepetas.carregister.Repository.PersonRepository;
+import cz.thepetas.carregister.repository.PersonRepository;
 import cz.thepetas.carregister.exception.PersonNotFound;
 import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
 import cz.thepetas.carregister.model.Person;
@@ -30,7 +30,13 @@ public class PersonServiceImp implements PersonService {
     @Override
     @Transactional(rollbackFor = PersonNotFound.class)
     public Person delete(long id) throws PersonNotFound {
-        return null;
+        Person finded = personRepositoty.findOne(id);
+        if (finded == null) {
+            throw new PersonNotFound();
+        }
+        personRepositoty.delete(finded);
+
+        return finded;
     }
 
     @Override

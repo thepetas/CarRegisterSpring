@@ -1,11 +1,10 @@
-package cz.thepetas.carregister.controller;
+package cz.thepetas.carregister.web.controller;
 
 import cz.thepetas.carregister.exception.CarWithIdMarkExists;
 import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
-import cz.thepetas.carregister.model.Address;
-import cz.thepetas.carregister.model.Car;
-import cz.thepetas.carregister.model.Person;
-import cz.thepetas.carregister.model.Vehicle;
+import cz.thepetas.carregister.data.model.Address;
+import cz.thepetas.carregister.data.model.Car;
+import cz.thepetas.carregister.data.model.Person;
 import cz.thepetas.carregister.service.AddressService;
 import cz.thepetas.carregister.service.PersonService;
 import cz.thepetas.carregister.service.VehicleService;
@@ -73,7 +72,7 @@ public class HomeController {
         person.setAddress(address);
 
         try {
-            personService.create(person);
+            person = personService.create(person);
         } catch (PersonWithBirthNumberExists personWithBirthNumberExists) {
             personWithBirthNumberExists.printStackTrace();
         }
@@ -85,7 +84,7 @@ public class HomeController {
         person1.setAddress(address1);
 
         try {
-            personService.create(person1);
+            person1 = personService.create(person1);
         } catch (PersonWithBirthNumberExists personWithBirthNumberExists) {
             personWithBirthNumberExists.printStackTrace();
         }
@@ -97,7 +96,7 @@ public class HomeController {
         person2.setAddress(address2);
 
         try {
-            personService.create(person2);
+            person2 = personService.create(person2);
         } catch (PersonWithBirthNumberExists personWithBirthNumberExists) {
             personWithBirthNumberExists.printStackTrace();
         }
@@ -106,6 +105,7 @@ public class HomeController {
         car1.setModel("MODEL1");
         car1.setBrand("BRAND1");
         car1.setIdMark("SPZ1");
+        car1.setOwner(person);
 
         Car car2 = new Car();
         car2.setModel("MODEL1");

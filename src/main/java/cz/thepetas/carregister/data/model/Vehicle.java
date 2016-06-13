@@ -1,7 +1,8 @@
-package cz.thepetas.carregister.model;
+package cz.thepetas.carregister.data.model;
 
 
-import cz.thepetas.carregister.enums.VehicleType;
+import com.fasterxml.jackson.annotation.JsonView;
+import cz.thepetas.carregister.data.json.View;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,22 +14,23 @@ import javax.validation.constraints.Size;
 @DiscriminatorColumn(name = "TYPE_VEHICLE", discriminatorType = DiscriminatorType.STRING)
 public abstract class Vehicle {
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromCar.class})
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromCar.class})
     @NotNull
     @Size(min = 1, max = 30)
     private String brand;
 
-    @Column
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromCar.class})
     @NotNull
     @Size(min = 1, max = 30)
     private String model;
 
-
-    @ManyToOne
+    @JsonView(View.SummaryFromCar.class)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Person owner;
 

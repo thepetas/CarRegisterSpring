@@ -1,4 +1,7 @@
-package cz.thepetas.carregister.model;
+package cz.thepetas.carregister.data.model;
+
+import com.fasterxml.jackson.annotation.*;
+import cz.thepetas.carregister.data.json.View;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,30 +12,33 @@ import java.util.List;
 @Table(name = "addresses")
 public class Address {
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromAddress.class})
     @Id
     @GeneratedValue
     private Long id;
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromAddress.class})
     @NotNull
-    @Column
     @Size(min = 1, max = 30)
     private String street;
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromAddress.class})
     @NotNull
-    @Column
     @Size(min = 1, max = 30)
     private String houseNumber;
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromAddress.class})
     @NotNull
-    @Column
     @Size(min = 1, max = 30)
     private String zipCode;
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromAddress.class})
     @NotNull
-    @Column
     @Size(min = 1, max = 30)
     private String city;
 
+
+    @JsonView(View.SummaryFromAddress.class)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
     private List<Person> persons;
 
@@ -86,5 +92,7 @@ public class Address {
         return street.equals(address.street) && houseNumber.equals(address.houseNumber)
                 && zipCode.equals(address.zipCode) && city.equals(address.city);
     }
+
+
 }
 

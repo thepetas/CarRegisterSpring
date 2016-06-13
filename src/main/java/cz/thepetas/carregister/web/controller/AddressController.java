@@ -1,7 +1,7 @@
-package cz.thepetas.carregister.controller;
+package cz.thepetas.carregister.web.controller;
 
 import cz.thepetas.carregister.exception.AddressNotFound;
-import cz.thepetas.carregister.model.Address;
+import cz.thepetas.carregister.data.model.Address;
 import cz.thepetas.carregister.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
+
+@RequestMapping("/addresses")
 @Controller
 public class AddressController extends WebMvcConfigurerAdapter {
 
@@ -28,12 +30,12 @@ public class AddressController extends WebMvcConfigurerAdapter {
     }
 
 
-    @RequestMapping(value = "/addresses/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newAddress(Address address) {
         return "address/new";
     }
 
-    @RequestMapping(value = {"/addresses/new"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
     public String newAddress(@Valid Address address,
                              BindingResult bindingResult,
                              final RedirectAttributes redirectAttributes) {
@@ -48,13 +50,13 @@ public class AddressController extends WebMvcConfigurerAdapter {
         return "redirect:/addresses";
     }
 
-    @RequestMapping("/addresses")
+    @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("addresses", addressService.findAll());
         return "address/index";
     }
 
-    @RequestMapping(value = "/addresses/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long addressId, final RedirectAttributes redirectAttributes) {
         try {
             addressService.delete(addressId);

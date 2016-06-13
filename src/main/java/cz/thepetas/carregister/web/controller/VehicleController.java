@@ -1,14 +1,13 @@
-package cz.thepetas.carregister.controller;
+package cz.thepetas.carregister.web.controller;
 
-import cz.thepetas.carregister.enums.VehicleType;
+import cz.thepetas.carregister.data.enums.VehicleType;
 import cz.thepetas.carregister.exception.CarWithIdMarkExists;
 import cz.thepetas.carregister.exception.VehicleNotFound;
-import cz.thepetas.carregister.model.Car;
-import cz.thepetas.carregister.model.Person;
+import cz.thepetas.carregister.data.model.Car;
+import cz.thepetas.carregister.data.model.Person;
 import cz.thepetas.carregister.service.PersonService;
 import cz.thepetas.carregister.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -154,7 +153,7 @@ public class VehicleController extends WebMvcConfigurerAdapter {
             }
 
             long id = vehicleService.update(car).getId();
-            redirectAttributes.addFlashAttribute("message", "Car '" + id + "' was succesfully added");
+            redirectAttributes.addFlashAttribute("message", "Car '" + id + "' was succesfully updated");
             return "redirect:/vehicles";
         } catch (CarWithIdMarkExists personWithBirthNumberExists) {
             carBindingResult.rejectValue("idMark", "error.car", "Car with this id mark already exists!");

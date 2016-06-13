@@ -1,9 +1,9 @@
 package cz.thepetas.carregister.service;
 
+import cz.thepetas.carregister.data.model.Car;
 import cz.thepetas.carregister.exception.CarWithIdMarkExists;
 import cz.thepetas.carregister.exception.VehicleNotFound;
-import cz.thepetas.carregister.model.Car;
-import cz.thepetas.carregister.model.Vehicle;
+import cz.thepetas.carregister.data.model.Vehicle;
 
 import java.util.List;
 

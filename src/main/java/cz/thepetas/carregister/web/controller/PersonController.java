@@ -1,18 +1,15 @@
-package cz.thepetas.carregister.controller;
+package cz.thepetas.carregister.web.controller;
 
 
 import cz.thepetas.carregister.exception.PersonNotFound;
 import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
-import cz.thepetas.carregister.model.Address;
-import cz.thepetas.carregister.model.Person;
-import cz.thepetas.carregister.model.Vehicle;
-import cz.thepetas.carregister.service.AddressService;
+import cz.thepetas.carregister.data.model.Address;
+import cz.thepetas.carregister.data.model.Person;
 import cz.thepetas.carregister.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -124,7 +121,7 @@ public class PersonController extends WebMvcConfigurerAdapter {
             person.setId(personId);
             person.setAddress(address);
             long id = personService.update(person).getId();
-            redirectAttributes.addFlashAttribute("message", "Person '" + id + "' was succesfully added");
+            redirectAttributes.addFlashAttribute("message", "Person '" + id + "' was succesfully updated");
             return "redirect:/persons";
         } catch (PersonWithBirthNumberExists personWithBirthNumberExists) {
             personBindingResult.rejectValue("birthNumber", "error.person", "Person with this birth number already exists!");

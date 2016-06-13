@@ -1,4 +1,7 @@
-package cz.thepetas.carregister.model;
+package cz.thepetas.carregister.data.model;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import cz.thepetas.carregister.data.json.View;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,31 +12,37 @@ import java.util.List;
 @Table(name = "persons")
 public class Person {
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromCar.class, View.SummaryFromAddress.class})
     @Id
     @GeneratedValue
     private Long id;
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromCar.class, View.SummaryFromAddress.class})
     @NotNull
-    @Column
     @Size(min = 1, max = 30)
     private String name;
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromCar.class, View.SummaryFromAddress.class})
     @NotNull
     @Size(min = 1, max = 30)
     private String surname;
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromCar.class, View.SummaryFromAddress.class})
     @NotNull
     @Size(min = 9, max = 10)
     @Column(unique = true)
     private String birthNumber;
 
+    @JsonView({View.SummaryFromPerson.class, View.SummaryFromCar.class})
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @JsonView(View.SummaryFromPerson.class)
     @OneToMany(mappedBy = "owner")
     private List<Vehicle> vehicles;
+
 
     public void setId(Long id) {
         this.id = id;
@@ -83,7 +92,7 @@ public class Person {
         this.vehicles = vehicles;
     }
 
-    public int getCntCars() {
-        return vehicles.size();
+    public Long getCntCars() {
+        return (vehicles != null) ? vehicles.size() : (long) 0;
     }
 }

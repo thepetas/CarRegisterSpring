@@ -1,12 +1,11 @@
 package cz.thepetas.carregister.service.impl;
 
-import cz.thepetas.carregister.model.Address;
-import cz.thepetas.carregister.model.Vehicle;
-import cz.thepetas.carregister.repository.AddressRepository;
-import cz.thepetas.carregister.repository.PersonRepository;
+import cz.thepetas.carregister.data.model.Address;
+import cz.thepetas.carregister.data.model.Vehicle;
+import cz.thepetas.carregister.data.repository.PersonRepository;
 import cz.thepetas.carregister.exception.PersonNotFound;
 import cz.thepetas.carregister.exception.PersonWithBirthNumberExists;
-import cz.thepetas.carregister.model.Person;
+import cz.thepetas.carregister.data.model.Person;
 import cz.thepetas.carregister.service.AddressService;
 import cz.thepetas.carregister.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;

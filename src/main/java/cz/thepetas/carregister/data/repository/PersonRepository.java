@@ -1,12 +1,11 @@
-package cz.thepetas.carregister.repository;
+package cz.thepetas.carregister.data.repository;
 
-import cz.thepetas.carregister.model.Person;
+import cz.thepetas.carregister.data.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-/**
- * Created by petr on 6/11/16.
- */
+@Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query(value = "SELECT * from persons where birth_number = ?1",

@@ -2,11 +2,12 @@ package cz.thepetas.carregister.service.impl;
 
 import cz.thepetas.carregister.exception.CarWithIdMarkExists;
 import cz.thepetas.carregister.exception.VehicleNotFound;
-import cz.thepetas.carregister.model.Car;
-import cz.thepetas.carregister.model.Vehicle;
-import cz.thepetas.carregister.repository.VehicleRepository;
+import cz.thepetas.carregister.data.model.Car;
+import cz.thepetas.carregister.data.model.Vehicle;
+import cz.thepetas.carregister.data.repository.VehicleRepository;
 import cz.thepetas.carregister.service.VehicleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,6 +19,7 @@ public class VehicleServiceImpl implements VehicleService {
     private VehicleRepository vehicleRepository;
 
     @Override
+    @Transactional
     public Vehicle create(Vehicle vehicle) throws CarWithIdMarkExists {
         if (vehicle instanceof Car) {
             Car car = (Car) vehicle;
@@ -25,12 +27,14 @@ public class VehicleServiceImpl implements VehicleService {
             if (c != null) {
                 throw new CarWithIdMarkExists();
             }
+
         }
         vehicleRepository.save(vehicle);
         return vehicle;
     }
 
     @Override
+    @Transactional
     public Vehicle delete(long id) throws VehicleNotFound {
         Vehicle vehicle = vehicleRepository.findOne(id);
         if (vehicle == null) {
@@ -57,6 +61,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    @Transactional
     public Vehicle update(Vehicle vehicle) throws CarWithIdMarkExists, VehicleNotFound {
         if (vehicle instanceof Car) {
             Car car = (Car) vehicle;

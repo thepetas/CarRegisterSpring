@@ -1,9 +1,9 @@
 package cz.thepetas.carregister.service.impl;
 
 
-import cz.thepetas.carregister.repository.AddressRepository;
+import cz.thepetas.carregister.data.repository.AddressRepository;
 import cz.thepetas.carregister.exception.AddressNotFound;
-import cz.thepetas.carregister.model.Address;
+import cz.thepetas.carregister.data.model.Address;
 import cz.thepetas.carregister.service.AddressService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -82,4 +82,8 @@ public class Person {
     public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
+
+    public int getCntCars() {
+        return vehicles.size();
+    }
 }

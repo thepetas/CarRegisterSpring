@@ -18,4 +18,6 @@ public interface VehicleService {
     public Vehicle findById(long id);
 
     public List<Vehicle> findAllByType(String type);
+
+    public Vehicle update(Vehicle vehicle) throws CarWithIdMarkExists, VehicleNotFound;
 }

@@ -29,6 +29,7 @@
             <td th:text="${car.brand}"></td>
             <td th:text="${car.model}"></td>
             <td><a th:href="@{/vehicles/} + ${car.id} + ''">Show</a></td>
+            <td><a th:href="@{/vehicles/edit/} + ${car.id} + ''">Edit</a></td>
             <td><a th:href="@{/vehicles/delete/} + ${car.id} + ''"
                    onclick="return confirm('Are you sure to delete this item?')">Delete</a></td>
         </tr>

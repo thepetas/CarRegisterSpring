@@ -56,5 +56,29 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleRepository.findyAllByType(type);
     }
 
+    @Override
+    public Vehicle update(Vehicle vehicle) throws CarWithIdMarkExists, VehicleNotFound {
+        if (vehicle instanceof Car) {
+            Car car = (Car) vehicle;
+            Vehicle finded = vehicleRepository.findyByIdMark(car.getIdMark());
+            if (finded != null && finded.getId() != car.getId()) {
+                throw new CarWithIdMarkExists();
+            }
+
+            finded = vehicleRepository.findOne(car.getId());
+            if (finded == null) {
+                throw new VehicleNotFound();
+            }
+
+            Car carFinded = (Car) finded;
+            carFinded.setIdMark(car.getIdMark());
+            carFinded.setModel(car.getModel());
+            carFinded.setBrand(car.getBrand());
+            carFinded.setOwner(car.getOwner());
+            return carFinded;
+        }
+        return null;
+    }
+
 
 }

@@ -48,6 +48,7 @@
     </div>
 
     <h2>Cars:</h2>
+    <h4 th:text="@{count: } + ${person.getCntCars()}"></h4>
     <div th:each="car : *{vehicles}">
         <div class="form-group">
             <div>
@@ -69,6 +70,7 @@
         </div>
     </div>
     <a th:href="@{/persons}" class="btn btn-default">Back</a>
+    <a th:href="@{/persons/edit/} + ${person.id} + ''" class="btn btn-primary">Edit</a>
 </div>
 </body>
 </html>

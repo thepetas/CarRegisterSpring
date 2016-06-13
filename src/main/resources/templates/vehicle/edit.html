@@ -10,9 +10,9 @@
 <body>
 <div th:include="navbar::navbar">Navbar</div>
 <div class="container-fluid">
-    <h1>New vehicle</h1>
+    <h1>Edit vehicle</h1>
 
-    <form action="#" th:action="@{/vehicles/new}" th:object="${car}" method="post">
+    <form action="#" th:action="@{/vehicles/edit/} + ${car.id}" th:object="${car}" method="post">
         <table>
             <tbody>
             <tr>
@@ -47,7 +47,7 @@
         </table>
 
         <a th:href="@{/vehicles}" class="btn btn-default">Back</a><input class="btn btn-success" type="submit"
-                                                                         value="Save"/>
+                                                                         value="Update"/>
     </form>
 
 

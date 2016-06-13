@@ -76,7 +76,6 @@ public class PersonServiceImpl implements PersonService {
         finded.setBirthNumber(person.getBirthNumber());
         Address address = addressService.create(person.getAddress());
         finded.setAddress(address);
-        personRepositoty.flush();
         return finded;
     }
 

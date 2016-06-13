@@ -4,14 +4,15 @@ import cz.thepetas.carregister.enums.VehicleType;
 import cz.thepetas.carregister.exception.CarWithIdMarkExists;
 import cz.thepetas.carregister.exception.VehicleNotFound;
 import cz.thepetas.carregister.model.Car;
+import cz.thepetas.carregister.model.Person;
+import cz.thepetas.carregister.service.PersonService;
 import cz.thepetas.carregister.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,6 +26,9 @@ public class VehicleController extends WebMvcConfigurerAdapter {
     @Autowired
     private VehicleService vehicleService;
 
+    @Autowired
+    private PersonService personService;
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/vehicles").setViewName("/vehicles");
@@ -37,7 +41,7 @@ public class VehicleController extends WebMvcConfigurerAdapter {
     }
 
     @RequestMapping(value = "/vehicles/new", method = RequestMethod.GET)
-    public String newVehicle(Car car) {
+    public String newVehicle(Car car, Person person) {
         return "vehicle/new";
     }
 
@@ -45,13 +49,26 @@ public class VehicleController extends WebMvcConfigurerAdapter {
     @RequestMapping(value = {"/vehicles/new"}, method = RequestMethod.POST)
     public String newPerson(@Valid Car car,
                             BindingResult carBindingResult,
+                            @Valid Person person,
+                            BindingResult personBindingResult,
                             final RedirectAttributes redirectAttributes) {
 
 
         if (carBindingResult.hasErrors()) {
             return "vehicle/new";
         }
+
         try {
+            if (person.getId() != null) {
+                long personId = person.getId();
+                person = personService.findById(personId);
+                if (person == null) {
+                    personBindingResult.rejectValue("id", "error.person", "Owner with this id doesn't exist!");
+                    return "vehicle/new";
+                }
+                car.setOwner(person);
+            }
+
             long id = vehicleService.create(car).getId();
             redirectAttributes.addFlashAttribute("message", "Car '" + id + "' was succesfully added");
             return "redirect:/vehicles";
@@ -87,5 +104,64 @@ public class VehicleController extends WebMvcConfigurerAdapter {
             model.addAttribute("owner", car.getOwner());
         }
         return "vehicle/show";
+    }
+
+
+    @RequestMapping(value = "/vehicles/edit/{id}", method = RequestMethod.GET)
+    public String editVehicle(@PathVariable("id") Long vehicleId, Model model,
+                              final RedirectAttributes redirectAttributes) {
+        Car car = (Car) vehicleService.findById(vehicleId);
+        if (car == null) {
+            redirectAttributes.addFlashAttribute("message", "Vehicle '" + vehicleId + "' doesn't exist.");
+            return "redirect:/vehicles";
+        }
+
+
+        model.addAttribute("car", car);
+        if (car.getOwner() == null) {
+            model.addAttribute("person", new Person());
+        } else {
+            model.addAttribute("person", car.getOwner());
+        }
+        return "vehicle/edit";
+    }
+
+    @RequestMapping(value = {"/vehicles/edit/{id}"}, method = RequestMethod.POST)
+    public String editVehicle(@PathVariable("id") Long vehicleId,
+                              @Valid Car car,
+                              BindingResult carBindingResult,
+                              @Valid Person person,
+                              BindingResult personBindingResult,
+                              final RedirectAttributes redirectAttributes) {
+
+
+        if (carBindingResult.hasErrors()) {
+            return "vehicle/edit";
+        }
+
+        try {
+            car.setId(vehicleId);
+            if (person.getId() != null) {
+                long personId = person.getId();
+                person = personService.findById(personId);
+                if (person == null) {
+                    personBindingResult.rejectValue("id", "error.person", "Owner with this id doesn't exist!");
+                    return "vehicle/edit";
+                }
+                car.setOwner(person);
+            } else {
+                car.setOwner(null);
+            }
+
+            long id = vehicleService.update(car).getId();
+            redirectAttributes.addFlashAttribute("message", "Car '" + id + "' was succesfully added");
+            return "redirect:/vehicles";
+        } catch (CarWithIdMarkExists personWithBirthNumberExists) {
+            carBindingResult.rejectValue("idMark", "error.car", "Car with this id mark already exists!");
+            return "vehicle/edit";
+        } catch (VehicleNotFound vehicleNotFound) {
+            redirectAttributes.addFlashAttribute("message", "Car '" + vehicleId + "' doesn't exist!");
+            return "redirect:/vehicles";
+        }
     }
 }
